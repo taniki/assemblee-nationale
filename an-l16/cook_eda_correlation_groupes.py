@@ -156,7 +156,7 @@ organes_pca
 )
 
 # %%
-covotes[organes_pca.libelle].loc[organes_pca.libelle].to_csv('out/covotes.csv')
+covotes[organes_pca.libelle].loc[organes_pca.libelle].to_csv('out/covotes-organes.csv')
 
 # %%
 (
@@ -169,8 +169,9 @@ covotes[organes_pca.libelle].loc[organes_pca.libelle].to_csv('out/covotes.csv')
         .format('{:,.1%}'.format)
         .background_gradient(
             cmap='PiYG',
-            vmin=0,
-            vmax=1
+            # vmin=0,
+            # vmax=1
+            axis=1
         )
 )
 

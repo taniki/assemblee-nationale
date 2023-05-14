@@ -214,3 +214,5 @@ fig, ax = plt.subplots()
 ax.set_yticklabels(axe.join(organes.set_index('uid')).libelle)
 
 plt.show()
+
+# %%
