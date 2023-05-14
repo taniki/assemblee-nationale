@@ -105,7 +105,15 @@ axe = (
 )
 
 # %%
-mapping.to_csv('out/acteurs_vecteur-scrutins_pca.csv')
+(
+    axe
+    .join(organes.set_index('uid'))
+    .set_index('libelle')
+    .to_csv('out/organes_pca.csv')
+)
+
+# %%
+mapping.to_csv('out/axes_vecteur-scrutins_pca.csv')
 
 # %%
 fig, ax = plt.subplots()
