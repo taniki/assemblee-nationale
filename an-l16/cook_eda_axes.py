@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.14.4
+#       jupytext_version: 1.14.5
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -88,6 +88,22 @@ mapping = (
 )
 
 mapping
+
+# %%
+pd.read_csv('out/acteurs.csv')
+
+# %%
+acteurs_pca = (
+    mapping
+    [['axe 1','axe 2', 'organe']]
+    .join(pd.read_csv('out/acteurs.csv').set_index('uid'))
+    .join(organes.set_index('uid')[['libelleAbrev', 'couleurAssociee']], on='organe')
+)
+
+acteurs_pca
+
+# %%
+acteurs_pca.to_csv('out/deputes_pca.csv')
 
 # %%
 axe = (
