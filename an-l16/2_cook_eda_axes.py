@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.14.5
+#       jupytext_version: 1.14.4
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -22,23 +22,16 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 import matplotlib.pyplot as plt
 
 # %%
-loyautes = pd.read_csv('out/loyautes.csv', index_col='acteurRef')
+#loyautes = pd.read_csv('out/loyautes.csv', index_col='acteurRef')
 
-# %%
-acteurs = (
-    pd
-    .read_csv('out/votes.csv')
-    .join(loyautes[['loyaute']], on='acteurRef')
-    .assign(
-        loyaute = lambda df: 1 - df.loyaute.fillna(0)
-    )
-)
-
-acteurs
+# %% tags=["parameters"]
+organes = pd.read_csv('out/organes.csv')
+acteurs = pd.read_csv('out/acteurs.csv')
+votes = (pd.read_csv('out/votes.csv'))
 
 # %%
 X = (
-    acteurs
+    votes
     .assign(
         position = lambda df: df.position.replace({'contre': -1, 'pour': 1, 'abstention': 0 })
     )
@@ -63,12 +56,9 @@ pca.explained_variance_ratio_
 len(X_r)
 
 # %%
-organes = pd.read_csv('out/organes.csv')
-
-# %%
 scrutins_vecteur = (
     X.reset_index()
-    .join(acteurs.drop_duplicates(subset='acteurRef').set_index('acteurRef'), on='acteurRef')
+    .join(votes.drop_duplicates(subset='acteurRef').set_index('acteurRef'), on='acteurRef')
     .join(organes.set_index('uid'), on='organe')
     .set_index('acteurRef')
 )
@@ -81,7 +71,7 @@ mapping = (
     .DataFrame(X_r, columns=["axe 1", "axe 2"])
     .join(
         X.reset_index()
-        .join(acteurs.drop_duplicates(subset='acteurRef').set_index('acteurRef'), on='acteurRef')
+        .join(votes.drop_duplicates(subset='acteurRef').set_index('acteurRef'), on='acteurRef')
         .join(organes.set_index('uid'), on='organe')
     )
     .set_index('acteurRef')
@@ -90,13 +80,10 @@ mapping = (
 mapping
 
 # %%
-pd.read_csv('out/acteurs.csv')
-
-# %%
 acteurs_pca = (
     mapping
     [['axe 1','axe 2', 'organe']]
-    .join(pd.read_csv('out/acteurs.csv').set_index('uid'))
+    .join(acteurs.set_index('uid'))
     .join(organes.set_index('uid')[['libelleAbrev', 'couleurAssociee']], on='organe')
 )
 
