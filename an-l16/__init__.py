@@ -97,11 +97,28 @@ def prep_all():
 
 pca_votes_nb = define_dagstermill_asset(
     name="pca_votes",
+    group_name="eda",
     notebook_path=file_relative_path(__file__, "2_cook_eda_axes.ipynb"),
     ins={
         'acteurs': AssetIn('acteurs'),
         'organes': AssetIn('organes'),
         'votes': AssetIn('votes'),
+    }
+)
+
+eda_rn_nb = define_dagstermill_asset(
+    name="20223_rn",
+    group_name="articles",
+    notebook_path=file_relative_path(__file__, "2_cook_eda_rn.ipynb"),
+    ins={
+        'acteurs': AssetIn('acteurs'),
+        'organes': AssetIn('organes'),
+        'amendements': AssetIn('amendements'),
+        'reunions': AssetIn('reunions'),
+        'interventions': AssetIn('interventions'),
+        'scrutins': AssetIn('scrutins'),
+        'votes': AssetIn('votes'),
+        'pca_votes': AssetIn('pca_votes'),
     }
 )
 
@@ -121,7 +138,7 @@ defs = Definitions(
     #     prep_amendements
     # ],
     assets= [
-        *load_assets_from_package_module(assets),
+        *load_assets_from_package_module(assets, group_name="ingredients"),
         # acteurs,
         # organes,
         # amendements,
@@ -129,7 +146,8 @@ defs = Definitions(
         # interventions,
         # scrutins,
         # votes,
-        pca_votes_nb
+        pca_votes_nb,
+        eda_rn_nb
     ],
     resources={"output_notebook_io_manager": ConfigurableLocalOutputNotebookIOManager()},
     jobs=[

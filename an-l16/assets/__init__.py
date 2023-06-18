@@ -1,6 +1,7 @@
 from dagster import AssetIn, asset, file_relative_path
 from dagstermill import define_dagstermill_asset
 
+import pandas as pd
 from pandas import DataFrame
 
 @asset

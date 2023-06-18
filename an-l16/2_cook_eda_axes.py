@@ -22,6 +22,10 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 import matplotlib.pyplot as plt
 
 # %%
+import dagstermill
+from dagster import AssetMaterialization
+
+# %%
 #loyautes = pd.read_csv('out/loyautes.csv', index_col='acteurRef')
 
 # %% tags=["parameters"]
@@ -116,6 +120,9 @@ axe = (
 )
 
 # %%
+dagstermill.yield_event(AssetMaterialization(asset_key="pca_votes_organes_computed"))
+
+# %%
 mapping.to_csv('out/axes_vecteur-scrutins_pca.csv')
 
 # %%
@@ -165,6 +172,9 @@ ax.axis('off')
 plt.savefig('graphics/acteurs_pca_scrutins.png', bbox_inches='tight')
 
 plt.show()
+
+# %%
+dagstermill.yield_event(AssetMaterialization(asset_key="pca_votes_plotted"))
 
 # %%
 axe.join(organes.set_index('uid'))
