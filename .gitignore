@@ -1,4 +1,6 @@
+__pycache__
+
 data
 downloads
 .ipynb_checkpoints
-
+tmp*
