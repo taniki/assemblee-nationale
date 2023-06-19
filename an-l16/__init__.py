@@ -106,6 +106,19 @@ pca_votes_nb = define_dagstermill_asset(
     }
 )
 
+interruptions_stats_nb = define_dagstermill_asset(
+    name="interruptions_stats",
+    group_name="eda",
+    notebook_path=file_relative_path(__file__, "2_cook_synthese_interruptions.ipynb"),
+    ins={
+        'acteurs': AssetIn('acteurs'),
+        'organes': AssetIn('organes'),
+        'reunions': AssetIn('reunions'),
+        'votes': AssetIn('votes'),
+        'interventions': AssetIn('interventions'),
+    }
+)
+
 eda_rn_nb = define_dagstermill_asset(
     name="20223_rn",
     group_name="articles",
@@ -147,6 +160,7 @@ defs = Definitions(
         # scrutins,
         # votes,
         pca_votes_nb,
+        interruptions_stats_nb,
         eda_rn_nb
     ],
     resources={"output_notebook_io_manager": ConfigurableLocalOutputNotebookIOManager()},
