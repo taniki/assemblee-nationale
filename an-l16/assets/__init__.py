@@ -21,7 +21,7 @@ def reunions() -> DataFrame:
     return pd.read_csv('out/reunions.csv')
 
 @asset
-def interventions() -> DataFrame:
+def interventions(reunions) -> DataFrame:
     return pd.read_csv('out/interventions.csv')
 
 @asset
