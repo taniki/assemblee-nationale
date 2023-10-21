@@ -16,3 +16,4 @@ Ce dépôt contient :
 
 * [Un an de votes « attrape-tout » pour le RN](https://www.mediapart.fr/journal/politique/220623/un-de-votes-attrape-tout-pour-le-rn)
 * [Nupes : à l’Assemblée, les chiffres prouvent que le groupe vit (plutôt) bien](https://www.mediapart.fr/journal/politique/130523/nupes-l-assemblee-les-chiffres-prouvent-que-le-groupe-vit-plutot-bien)
+* [spatialisation des députés avec une analyse en composantes principales](https://data.11d.im/foodcourt/votes-an/pca-deputes)
